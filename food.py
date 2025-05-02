@@ -4,20 +4,18 @@ import random
 
 class Food(Turtle):
     def __init__(self):
-        # Properly calling the constructor of the parent class
         super().__init__()
-
-        self.shape("circle")  # Set the food shape directly
+        self.shape("circle")
         self.penup()
-        self.color("green")
+        self.color("white")
+        self.shapesize(stretch_len=0.5, stretch_wid=0.5)
         self.speed("fastest")
         self.refresh()
-    
-    def refresh(self):
-        # This method places the food at a random position
-        x = random.randint(-280, 280)
-        y = random.randint(-280, 280)
-        self.goto(x, y)
 
-    def get_food(self):
-        return self
+    def refresh(self):
+        random_x = random.randint(-270, 270)
+        random_y = random.randint(-270, 270)
+        self.goto(random_x, random_y)
+
+
+
