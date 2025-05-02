@@ -8,6 +8,7 @@ class Snake:
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
+        self.tail = self.segments[-1]
 
     def create_snake(self):
         for i in range(3):
@@ -23,6 +24,7 @@ class Snake:
             new_y = self.segments[i - 1].ycor()
             self.segments[i].goto(new_x, new_y)
         self.head.forward(MOVE_DISTANCE)
+        self.touched_snake()
 
     def go_up(self):
         if self.head.heading() != 270:
@@ -46,8 +48,25 @@ class Snake:
         y = self.head.ycor()
 
         if x > 290 or x < -290 or y > 290 or y < -290:
-            self.clear_snake()
+            return True
+        return False
 
     def clear_snake(self):
         for segment in self.segments:
             segment.goto(5000, 5000)
+
+    def extend_snake(self):
+        new_turtle = Turtle(shape="square")
+        new_turtle.penup()
+        new_turtle.color("blue")
+        new_x = self.tail.xcor()
+        new_y = self.tail.ycor()
+        new_turtle.goto(new_x, new_y)
+        self.segments.append(new_turtle)
+
+    def touched_snake(self):
+        for segment in self.segments[3:]:
+            if self.head.distance(segment) < 10:
+                self.clear_snake()
+                self.create_snake()
+                break
